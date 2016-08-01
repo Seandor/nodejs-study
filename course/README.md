@@ -71,4 +71,13 @@ If you want to explicitly support structure for documents that are inserted in a
     - Schema types: String, Number, Date, Buffer, Boolean, Mixed, ObjectId, Array
 - Schema is used to create a Model function
 
+### Build an end-to-end REST API based server
 
+### Basic Authentication
+- Method for HTTP user agent to provide username and password with a request
+- Sever can challenge a client to authenticate iteself
+- Client needs to send the username and password in response
+
+### HTTP Cookies
+- Small piece of data sent from a web server and stored on the client side
+- Each subsequent request from the client side should include the cookie in the request header
