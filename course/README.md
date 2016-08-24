@@ -79,5 +79,15 @@ If you want to explicitly support structure for documents that are inserted in a
 - Client needs to send the username and password in response
 
 ### HTTP Cookies
-- Small piece of data sent from a web server and stored on the client side
-- Each subsequent request from the client side should include the cookie in the request header
+- Small piece of data sent from a web server and stored on the client side (服务端发送的一小块数据，存储在客户端)
+- Each subsequent request from the client side should include the cookie in the request header (每个后续的客户端请求都应该在请求头中包括该cookie)
+
+### Express Sessions
+- Used to track user sessions
+    - Combination of cookie with session id and server-side storage of information indexed by session id
+    - Session information:
+        - Stored by default in-memory(wiped out when server restarts)(后两种是解决服务器重启session信息丢失的办法)
+        - Stored in permanent store on server side
+        - Distributed session store if using multiple replicated servers
+
+express session 的练习中不知道为什么postman上会有两个cookie，一个名字是session-id, 另一个是user。

@@ -42,3 +42,29 @@ new 绑定 > 隐式绑定
 全局对象。
 ```var bar = foo()```
 
+### 对象
+常见的内置对象有：
+
+- String
+- Number
+- Boolean
+- Object
+- Function
+- Array
+- Date
+- RegExp
+- Error
+
+在对象中，属性名永远都是字符串。
+
+How to ensure that my object is JSON safe?
+
+### 类理论
+
+“Class/Inheritance” describes a certain form of code organization and architecture -- a way of modeling real world problem domains in our software.
+
+类只是一种设计模式。
+
+类是一张蓝图。
+
+### prototype

@@ -16,4 +16,12 @@
 
 ### Parallel Threading
 
+异步 & 并行
+
 It's very common to conflate the terms "async" and "parallel," but they are actually quite different. Remember, async is about the gap between now and later. But parallel is about things being able to occur simultaneously.
+
+### Run-to-Completion
+因为Javascript是单线程的，所以函数中的代码具有原子属性，即一旦函数开始执行，在函数中的代码执行完之前，是不没有其它代码可以运行的。
+
+#### race condition
+竞争条件，例子`race-condition.js`中，`foo()`和`bar()`两者间互相竞争谁先运行，你无法准确地预测`a`和`b`的值。

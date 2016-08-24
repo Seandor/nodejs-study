@@ -1,25 +1,29 @@
-// browser based cookies used to do the authentication
-// once you shutdown the browser, you need to be authenticated 
-// again.
-
 
 var express = require('express');
 var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 
 var hostname = 'localhost';
-var port = 1993;
+var port = 3000;
 
 var app = express();
 
 app.use(morgan('dev'));
-app.use(cookieParser('12345-67890-09876-54321'));	// use of signed cookie
+
+app.use(session({
+	name: 'session-id',
+	secret: '12345-67890-09876-54320',
+	saveUninitialized: true,
+	resave: true,
+	store: new FileStore()
+}));
 
 // it is a authentication middleware
 function auth(req, res, next) {
 	console.log(req.headers);
 
-	if (!req.signedCookies.user) {
+	if (!req.session.user) {
 		var authHeader = req.headers.authorization;
 		if (!authHeader) {
 			var err = new Error('You are not authenticated!');
@@ -32,8 +36,7 @@ function auth(req, res, next) {
 		var user = auth[0];
 		var pass = auth[1];
 		if (user === 'admin' && pass === 'password') {
-			// if it's authorized user, set the cookie
-			res.cookie('user', 'admin', {signed: true});	// name, value, additional
+			req.session.user = 'admin';
 			next();
 		} else {
 			var err = new Error('You are not authenticated!');
@@ -41,8 +44,8 @@ function auth(req, res, next) {
 			next(err);
 		}
 	} else {
-		if (req.signedCookies.user === 'admin') {
-			console.log(req.signedCookies);
+		if (req.session.user === 'admin') {
+			console.log('req.session: ', req.session);
 			next();
 		} else {
 			var err = new Error('You are not authenticated!');
