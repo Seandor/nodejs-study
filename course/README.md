@@ -91,3 +91,9 @@ If you want to explicitly support structure for documents that are inserted in a
         - Distributed session store if using multiple replicated servers
 
 express session 的练习中不知道为什么postman上会有两个cookie，一个名字是session-id, 另一个是user。
+
+
+### Token based authentication
+
+
+为什么别人主动修改token，服务器端就通过签名知道呢？这应该是个和密码学相关的问题。关键在于signature应该是根据token的前两段数据算出来的。
