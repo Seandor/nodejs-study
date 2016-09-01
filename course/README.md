@@ -82,6 +82,8 @@ If you want to explicitly support structure for documents that are inserted in a
 - Small piece of data sent from a web server and stored on the client side (服务端发送的一小块数据，存储在客户端)
 - Each subsequent request from the client side should include the cookie in the request header (每个后续的客户端请求都应该在请求头中包括该cookie)
 
+Cookies 被设计为一种可靠的机制，用作网站来记住一些状态信息（例如在在线购物网站中物品被加入购物车）或者记录用户的浏览活动（包括点击特定的按钮，登录，或者记录打开过的网页）。Cookie 也可以被用来记录任意信息，如用户上次在表单中输入的姓名，地址，密码，信用卡帐号等。
+
 ### Express Sessions
 - Used to track user sessions
     - Combination of cookie with session id and server-side storage of information indexed by session id
@@ -92,6 +94,7 @@ If you want to explicitly support structure for documents that are inserted in a
 
 express session 的练习中不知道为什么postman上会有两个cookie，一个名字是session-id, 另一个是user。
 
+"Cookies were originally introduced to provide a way for users to record items they want to purchase as they navigate throughout a website(a virtual shopping cart or shopping basket)", 而现在，用户购物车中的内容通常都存储在服务器的数据库中，而不是在客户端的cookie中。（这也就是老师提到的scalability的问题，不用去考虑需要跟踪的物品太多导致cookie太大）。为了跟踪用户和购物车的对应关系，服务端给客户端发送一个带有**unique session identifier**的cookie。Because cookies are sent to the server every time the user visits a new page on the website, which lets the server know which shopping cart to display to the user.
 
 ### Token based authentication
 
