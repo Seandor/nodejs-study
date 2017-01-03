@@ -97,6 +97,22 @@ express session 的练习中不知道为什么postman上会有两个cookie，一
 "Cookies were originally introduced to provide a way for users to record items they want to purchase as they navigate throughout a website(a virtual shopping cart or shopping basket)", 而现在，用户购物车中的内容通常都存储在服务器的数据库中，而不是在客户端的cookie中。（这也就是老师提到的scalability的问题，不用去考虑需要跟踪的物品太多导致cookie太大）。为了跟踪用户和购物车的对应关系，服务端给客户端发送一个带有**unique session identifier**的cookie。Because cookies are sent to the server every time the user visits a new page on the website, which lets the server know which shopping cart to display to the user.
 
 ### Token based authentication
+为什么要使用Token based authentication？
+- Session authentication becomes a problem when we need stateless servers and scalability
+
+> 什么时候会需要stateless服务器呢？ 数据量特别大的时候即使是存储session id也会对服务器造成很大的压力（应该是这样吧）。
+
+- 移动平台很难处理cookies/session
+- 与其他应用分享authentication不是很方便
+- CORS 问题
+- Cross-site request forgery (CSRF)
+
+怎么做？
+1. 用户通过用户名密码接入
+2. 服务端验证
+3. 服务端创建一个signed token 并发送给客户端。（服务端不用存储任何信息）
+4. 后续所有的客户端请求都需要包含该token
+5. 服务端会验证该token，如果通过则回应数据
 
 
 为什么别人主动修改token，服务器端就通过签名知道呢？这应该是个和密码学相关的问题。关键在于signature应该是根据token的前两段数据算出来的。
