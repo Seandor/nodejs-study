@@ -2,9 +2,11 @@ const request = require('request');
 
 var geoAddress = (address, callback) => {
 	var encodedAddress = encodeURIComponent(address);
-
+	var baseURI = 'http://api.map.baidu.com/geocoder/v2/?address';
+	// var baseURI = 'https://maps.googleapis.com/maps/api/geocode/json?address';
+	
 	request({
-	    url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
+	    url: `$(baseURI)=${encodedAddress}`,
 	    json: true
 	}, (error, response, body) => {
 	    if (error) {
@@ -15,7 +17,7 @@ var geoAddress = (address, callback) => {
 	    	callback(undefined, {
 	    		Address: body.results[0].formatted_address,
 	    		Latitude: body.results[0].geometry.location.lat,
-	    		Longitude: Longitude: body.results[0].geometry.location.lng
+	    		Longitude: body.results[0].geometry.location.lng
 	    	})
 	    }
 	});	
