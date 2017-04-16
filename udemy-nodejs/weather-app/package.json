@@ -12,6 +12,6 @@
     "request": "^2.81.0",
     "socks5-http-client": "^1.0.2",
     "socks5-https-client": "^1.2.0",
-    "yargs": "^7.0.2"
+    "yargs": "^7.1.0"
   }
 }

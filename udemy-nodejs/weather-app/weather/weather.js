@@ -3,11 +3,9 @@ const socks5HttpAgent = require('socks5-http-client/lib/Agent');
 const socks5HttpsAgent = require('socks5-https-client/lib/Agent');
 const _url = require('url');
 
-var geocodeAddress = (address) => {
+var getWeather = (lat, lng) => {
   return new Promise((resolve, reject) => {
-    var encodedAddress = encodeURIComponent(address);
-
-    var urlString = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`;
+    var urlString = `https://api.forecast.io/forecast/a504192ee3463dee820d46ed6c003fe5/${lat},${lng}`;
     var url = _url.parse(urlString);
 
     var agentClass = (url.protocol === 'https:') ? socks5HttpsAgent : socks5HttpAgent;
@@ -26,21 +24,19 @@ var geocodeAddress = (address) => {
 
     request(options, (error, response, body) => {
       if (error) {
-        reject(`Can not connect to google server${error}`);
-      } else if (body.status === 'ZERO_RESULTS') {
-        reject('Unable to find that address');
-      } else if (body.status === 'OK') {
+        reject('Unable to connect to Forecast.io server.');
+      } else if (response.statusCode === 400) {
+        reject('Unable to fetch weather.');
+      } else if (response.statusCode === 200) {
         resolve({
-          Address: body.results[0].formatted_address,
-          Latitude: body.results[0].geometry.location.lat,
-          Longitude: body.results[0].geometry.location.lng
-        })
+          temperature: body.currently.temperature,
+          apparentTemperature: body.currently.apparentTemperature
+        });
       }
     });
   });
 };
 
-
 module.exports = {
-	geocodeAddress
+  getWeather
 };
