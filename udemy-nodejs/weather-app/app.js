@@ -20,7 +20,7 @@ geocode.geocodeAddress(argv.address).then((results) => {
 	console.log(results.Address);
 	return weather.getWeather(results.Latitude, results.Longitude);
 }).then((weatherResults) => {
-	console.log(`It's currently ${weatherResults.temperature}. It feels like ${weatherResults.apparentTemperature}.`);
+	console.log(`It's currently ${weatherResults.temperature}℃. It feels like ${weatherResults.apparentTemperature}℃.`);
 }).catch((errorMessage) => {
 	console.log(errorMessage);
 });

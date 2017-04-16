@@ -3,6 +3,12 @@ const socks5HttpAgent = require('socks5-http-client/lib/Agent');
 const socks5HttpsAgent = require('socks5-https-client/lib/Agent');
 const _url = require('url');
 
+// transform FAHRENHEIT to CELSIUS 
+var transformTemperature = (fahrenheit) => {
+  var celsius = (fahrenheit - 32) / 1.8;
+  return celsius.toFixed(2);
+}
+
 var getWeather = (lat, lng) => {
   return new Promise((resolve, reject) => {
     var urlString = `https://api.forecast.io/forecast/a504192ee3463dee820d46ed6c003fe5/${lat},${lng}`;
@@ -29,8 +35,8 @@ var getWeather = (lat, lng) => {
         reject('Unable to fetch weather.');
       } else if (response.statusCode === 200) {
         resolve({
-          temperature: body.currently.temperature,
-          apparentTemperature: body.currently.apparentTemperature
+          temperature: transformTemperature(body.currently.temperature),
+          apparentTemperature: transformTemperature(body.currently.apparentTemperature)
         });
       }
     });
