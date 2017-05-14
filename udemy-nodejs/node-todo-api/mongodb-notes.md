@@ -12,3 +12,6 @@ mongod --dbpath ./
 ```
 
 You can use `mongo` to connect to the Mongodb server that we just started. The `mongo` command is kind of like the `node` command to give us a environment to run mongo commands.
+
+### Testing
+While we are running the test using "npm run test-watch", we should not have our server running, it will interfere with supertest request.
