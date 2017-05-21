@@ -15,3 +15,7 @@ You can use `mongo` to connect to the Mongodb server that we just started. The `
 
 ### Testing
 While we are running the test using "npm run test-watch", we should not have our server running, it will interfere with supertest request.
+
+### Problem record
+
+1. When I am using postman to send a post request with JSON data {"text": "something", "completed": "true"}, it will parse the boolean value correctly. => It turns out I didn't save "completed" in the server.js, problem solved.
